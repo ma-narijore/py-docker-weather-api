@@ -1,6 +1,31 @@
+import os
+
+import requests
+
+from dotenv import load_dotenv
+
+load_dotenv()
+
+
+BASE_URL = "http://api.weatherapi.com/v1"
+
+ENDPOINT = "/current.json"
+
 def get_weather() -> None:
-    # write your code here
-    pass
+    req = requests.get(
+        BASE_URL + ENDPOINT,
+        headers={
+            "Content-Type": "application/json",
+            "key": os.environ.get("WEATHER_API"),
+        },
+        params={
+            "q": "Paris"
+        }
+    ).json()
+
+    print(f"Performing request to Weather API for city {req["location"]["name"]}...")
+    print(f"{req['location']['name']}/{req['location']['country']} {req['location']['localtime']} "
+          f"Weather: {req['current']['temp_c']} Celsius, {req['current']['condition']["text"]}.")
 
 
 if __name__ == "__main__":
