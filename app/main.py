@@ -11,6 +11,8 @@ BASE_URL = "http://api.weatherapi.com/v1"
 
 ENDPOINT = "/current.json"
 
+CITY = "Paris"
+
 def get_weather() -> None:
     req = requests.get(
         BASE_URL + ENDPOINT,
@@ -19,7 +21,7 @@ def get_weather() -> None:
             "key": os.environ.get("WEATHER_API"),
         },
         params={
-            "q": "Paris"
+            "q": CITY,
         }
     ).json()
 
